@@ -3,9 +3,7 @@ using ProductManagementAPI.SKUGenerate;
 
 namespace ProductManagementAPI.SKUGenerateFactory
 {
-	public class Factory
-	{
-	}
+	
 	// SkuGeneratorFactory.cs
 	public static class SkuGeneratorFactory
 	{

@@ -3,9 +3,7 @@ using ProductManagementAPI.Model;
 
 namespace ProductManagementAPI.SKUGenerate
 {
-	public class SKUGenerate
-	{
-	}
+	
 	// NikeSkuGenerator.cs
 	public class NikeSkuGenerator : ISkuGenerator
 	{
