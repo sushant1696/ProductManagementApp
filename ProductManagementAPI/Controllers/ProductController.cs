@@ -22,6 +22,7 @@ namespace ProductManagementAPI.Controllers
 				return result.Failed(ErrorCode.BadRequest, "InValid Request", "Please Enter Valida Data");
 			try
 			{
+				_logger.LogInformation("CreateProduct Request Body {@product}", product);
 				Product response = await _productRepository.AddAsync(product);
 				if (response is not null)
 				{
@@ -46,6 +47,7 @@ namespace ProductManagementAPI.Controllers
 			List<Product> listResult = new();
 			try
 			{
+				
 				listResult = await _productRepository.GetAllAsync();
 				if (listResult is not null && listResult.Count > 0)
 				{
@@ -71,6 +73,7 @@ namespace ProductManagementAPI.Controllers
 			Product product = new();
 			try
 			{
+				_logger.LogInformation(" Requested id {@id}", id);
 				if (id <= 0)
 				{
 					return commonResponse.Failed(ErrorCode.BadRequest, "Invalid Request", "Id should be greater than 0");
@@ -101,6 +104,7 @@ namespace ProductManagementAPI.Controllers
 			Product updatedProduct = new();
 			try
 			{
+				_logger.LogInformation("UpdateProduct Request Body {@product}", product);
 				if (id != product.ProductId)
 				{
 					return commonResponse.Failed(ErrorCode.BadRequest, "InValid Request");
@@ -129,6 +133,7 @@ namespace ProductManagementAPI.Controllers
 			CommonResponse<string> commonResponse = new();
 			try
 			{
+				_logger.LogInformation("DeleteProduct Request Id {@id}", id);
 				if (id <= 0)
 				{
 					return commonResponse.Failed(ErrorCode.BadRequest, "InValid Request", "");
@@ -140,12 +145,12 @@ namespace ProductManagementAPI.Controllers
 				}
 				else
 				{
-					return commonResponse.Failure("Delete Success");
+					return commonResponse.Ok("Delete Success");
 				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Error In Update Product");
+				_logger.LogError(ex, "Error In deleteProduct");
 				return commonResponse.Exception(ex);
 			}
 		}
@@ -155,6 +160,7 @@ namespace ProductManagementAPI.Controllers
 		{
 			try
 			{
+				_logger.LogInformation("Decrement Request id {@id}", id);
 				var success = await _productRepository.DecrementStockAsync(id, quantity);
 				if (!success) return NotFound();
 			}
@@ -172,8 +178,7 @@ namespace ProductManagementAPI.Controllers
 		{
 			try
 			{
-
-
+				_logger.LogInformation("Add Stock Request id {@id}", id);
 				var success = await _productRepository.AddToStockAsync(id, quantity);
 				if (!success) return NotFound();
 			}
