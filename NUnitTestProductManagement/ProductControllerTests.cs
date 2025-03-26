@@ -67,7 +67,7 @@ namespace NUnitTestProductManagement
 			var result = await _controller.CreateProduct(productRequest);
 
 			Assert.IsFalse(result.IsSuccess);
-			Assert.AreEqual("Please Enter Valida Data", result.Message);
+			Assert.AreEqual("InValid Request", result.Message);
 		}
 
 		[Test]
